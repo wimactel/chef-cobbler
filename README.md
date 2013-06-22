@@ -6,7 +6,6 @@ Inspiration has been taken from:
 - https://github.com/opsmatic/cobbler_master-cookbook
 - https://github.com/bloomberg/chef-bcpc/
 
-
 Requirements
 ------------
 TODO: List your cookbook requirements. Be sure to include any requirements this cookbook has on platforms, libraries, other cookbooks, packages, operating systems, etc.
@@ -17,6 +16,7 @@ e.g.
 
 #### cookbooks
 - `yum` - https://github.com/opscode-cookbooks/yum
+- `apache2` - https://github.com/opscode-cookbooks/yum
 
 Attributes
 ----------
@@ -29,9 +29,7 @@ The file has been documented inline with attribute values.
 Usage
 -----
 #### cobbler::default
-TODO: Write usage instructions for each cookbook.
 
-e.g.
 Just include `cobbler` in your node's `run_list`:
 
 ```json
@@ -43,6 +41,8 @@ Just include `cobbler` in your node's `run_list`:
 }
 ```
 
+When cobbler-web is enabled, apache will have `mod_proxy` and `mod_rewrite` enabled.
+
 Caveats
 ------------
 Lots. 
@@ -50,10 +50,6 @@ Lots.
 Currently this is a pretty messy run. The web portion should be a seperate recipie, as it's an optional seperate component, and also, i'm not sure how to properly enable it in apache. 
 
 The debian stuff is also pretty ugly. 
-
-I've pulled in a couple of default setups. 
-
-
 
 Contributing
 ------------
