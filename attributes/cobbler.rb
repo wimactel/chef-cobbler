@@ -79,7 +79,7 @@ if node['cobbler']['web']['enable']
 	# https://github.com/cobbler/cobbler/wiki/Security-overview
 	# https://github.com/cobbler/cobbler/wiki/Kerberos
 	# https://github.com/cobbler/cobbler/wiki/Ldap
-	default['cobbler']['web']['authentiation_module'] = 'authn_denyall'
+	default['cobbler']['web']['authentication_module'] = 'authn_denyall'
 
 	# authorization: 
 	# once a user has been cleared by the WebUI/XMLRPC, what can they do?
@@ -97,7 +97,7 @@ if node['cobbler']['web']['enable']
 	# https://github.com/cobbler/cobbler/wiki/Cobbler-web-interface
 	# https://github.com/cobbler/cobbler/wiki/Security-overview
 	# https://github.com/cobbler/cobbler/wiki/Web-authorization
-	default['cobbler']['web']['authentiation_module'] = 'authz_allowall'
+	default['cobbler']['web']['authorization_module'] = 'authz_allowall'
 
 	default['cobbler']['ldap']['enable'] = false
 
