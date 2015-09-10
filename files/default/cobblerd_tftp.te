@@ -1,0 +1,11 @@
+
+module cobblerd_tftp 1.0;
+
+require {
+	type tftpdir_rw_t;
+	type cobblerd_t;
+	class dir rmdir;
+}
+
+#============= cobblerd_t ==============
+allow cobblerd_t tftpdir_rw_t:dir rmdir;

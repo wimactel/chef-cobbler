@@ -1,6 +1,5 @@
-#
 # Cookbook Name:: cobbler
-# Recipe:: cobbler
+# Recipe:: install
 #
 # Copyright 2008-2010, WiMacTel, Inc.
 #
@@ -32,11 +31,7 @@ node['cobbler']['packages'].each do |package_name|
   end
 end
 
-# TODO: this should probably be a seperate recipie, but I don't know how to modify config files from two places.
 if node['cobbler']['web']['enable']
-	include_recipe "apache2"
-	include_recipe "apache2::mod_proxy"
-	include_recipe "apache2::mod_rewrite"
 	node['cobbler']['web-packages'].each do |package_name|
 	  package package_name do
 	    action :install
@@ -44,28 +39,3 @@ if node['cobbler']['web']['enable']
 	end
 end
 
-template "/etc/cobbler/settings" do
-	mode "0644"
-	source "settings.erb"
-	notifies :restart, "service[cobblerd]", :delayed
-end
-
-template "/etc/cobbler/modules.conf" do
-	mode "0644"
-	source "modules.erb"
-	notifies :restart, "service[cobblerd]", :delayed
-end
-
-if node['cobbler']['ldap']['enable']
-	puts ldap
-	# TODO: https://fedorahosted.org/cobbler/wiki/CobblerWithLdap
-end
-
-service "cobblerd" do
-    action [ :enable, :start ]
-end
-
-execute "cobbler sync" do
-	command "sleep 5; cobbler sync"
-	action :nothing
-end

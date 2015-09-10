@@ -121,3 +121,22 @@ if node['cobbler']['web']['enable']
 	end
 
 end
+########## DHCP Template ###############3
+default['cobbler']['dhcp_network'] = {
+  'network' => '192.168.1.0',
+  'netmask' => '255.255.255.0',
+  'routers' => '192.168.1.1',
+  'name_servers' => '192.168.1.1',
+  'range' => '192.168.1.100 192.168.1.200'
+}
+
+########## SELinux Policies ##############
+default['selinux']['state'] = 'enforcing'
+cobblerd_selinux_bools = {
+  'cobbler_can_network_connect' => true,
+  'httpd_can_network_connect_cobbler' => true,
+  'httpd_serve_cobbler_files' => true,
+  'httpd_can_network_connect' => true
+}
+normal['selinux']['booleans'].merge!( cobblerd_selinux_bools )
+
