@@ -16,13 +16,15 @@
 # limitations under the License.
 
 if not node['cobbler']['packages']
-	Chef::Log.error("Can't install Cobbler, if I don't know what the packages are!")	
+	Chef::Log.error("Can't install Cobbler, if I don't know what the packages are!")
   return
 end
 
 # we need EPEL if this is RHEL
-if node["platform_family"] == "rhel"
-  include_recipe "yum::epel" if node["platform_version"].to_i <= 5
+case node.platform_family
+when 'debian'
+when 'rhel', 'fedora'
+	include_recipe 'yum-epel'
 end
 
 node['cobbler']['packages'].each do |package_name|
@@ -38,4 +40,3 @@ if node['cobbler']['web']['enable']
 	  end
 	end
 end
-

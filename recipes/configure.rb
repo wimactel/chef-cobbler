@@ -19,20 +19,21 @@
 
 template '/etc/cobbler/settings' do
 	mode '0644'
-	source 'settings.erb'
+	source 'cobbler/settings.erb'
+	variables ({ :settings => node['cobbler']['settings'] })
 	notifies :restart, 'service[cobblerd]', :delayed
 end
 
 template '/etc/cobbler/dhcp.template' do
   mode '0644'
   variables ({ :subnet => node['cobbler']['dhcp_network'] })
-  source 'cobbler_dhcp_template.erb'
+  source 'cobbler/dhcp_template.erb'
   notifies :restart, 'service[cobblerd]', :delayed
 end
 
 template '/etc/cobbler/modules.conf' do
 	mode '0644'
-	source 'modules.erb'
+	source 'cobbler/modules.erb'
 	notifies :restart, 'service[cobblerd]', :delayed
 end
 
@@ -46,4 +47,3 @@ if node['cobbler']['ldap']['enable']
 	puts ldap
 	# TODO: https://fedorahosted.org/cobbler/wiki/CobblerWithLdap
 end
-
